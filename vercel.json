@@ -1,7 +1,10 @@
 {
   "functions": {
     "api/article.go": {
-      "includeFiles": "../output/**"
+      "includeFiles": "_files/**"
+    },
+    "api/list.go": {
+      "includeFiles": "_files/**"
     }
   },
   "rewrites": [
