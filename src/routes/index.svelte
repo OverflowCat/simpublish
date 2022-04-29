@@ -3,7 +3,7 @@
 </script>
 
 <script>
-	import Counter from '$lib/Counter.svelte';
+	import List from '$lib/List.svelte';
 </script>
 
 <svelte:head>
@@ -19,14 +19,9 @@
 			</picture>
 		</div>
 
-		to your new<br />SvelteKit app
+		Simpublish
 	</h1>
-
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
-
-	<Counter />
+	<List />
 </section>
 
 <style>

@@ -1,4 +1,4 @@
-package handler
+package api
 
 import (
 	"errors"
@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-const LOCAL_DEBUG = true
+const LOCAL_DEBUG = false
 
 func GetArticleById(id uint64) (string, error) {
 	// Read all files in the directory and find the file starting with the given ID
@@ -33,7 +33,7 @@ func GetArticleById(id uint64) (string, error) {
 	return "", errors.New("Not found")
 }
 
-func Handler(w http.ResponseWriter, r *http.Request) {
+func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("New request!")
 	for _, cookie := range r.Cookies() {
 		log.Println("Found a cookie: ", cookie.Name, cookie.Value)

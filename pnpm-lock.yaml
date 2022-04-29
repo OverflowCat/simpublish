@@ -5,12 +5,14 @@ specifiers:
   '@lukeed/uuid': ^2.0.0
   '@sveltejs/adapter-auto': next
   '@sveltejs/kit': next
+  '@sveltejs/svelte-virtual-list': ^3.0.1
   cookie: ^0.4.1
   svelte: ^3.46.0
 
 dependencies:
   '@fontsource/fira-mono': 4.5.8
   '@lukeed/uuid': 2.0.0
+  '@sveltejs/svelte-virtual-list': 3.0.1
   cookie: 0.4.2
 
 devDependencies:
@@ -96,6 +98,10 @@ packages:
       - stylus
       - supports-color
     dev: true
+
+  /@sveltejs/svelte-virtual-list/3.0.1:
+    resolution: {integrity: sha512-aF9TptS7NKKS7/TqpsxQBSDJ9Q0XBYzBehCeIC5DzdMEgrJZpIYao9LRLnyyo6SVodpapm2B7FE/Lj+FSA5/SQ==}
+    dev: false
 
   /@sveltejs/vite-plugin-svelte/1.0.0-next.42_svelte@3.47.0+vite@2.9.6:
     resolution: {integrity: sha512-I8ILzfjVQuOkl6eDHif6/QJhOEBnsA40u6/0RDWK0mujwOr+MfWCWEZEnrTKqa6YIVMO+uktfoknu61chbAIeg==}
