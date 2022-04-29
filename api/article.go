@@ -10,16 +10,16 @@ import (
 	"strings"
 )
 
-const LOCAL_DEBUG = false
+/* const LOCAL_DEBUG = false */
 
 func GetArticleById(id uint64) (string, error) {
 	// Read all files in the directory and find the file starting with the given ID
 	var path string
-	if LOCAL_DEBUG {
+/* 	if LOCAL_DEBUG {
 		path = "C:\\Users\\Neko\\Documents\\GitHub\\simpublish\\api\\" + "_files"
-	} else {
+	} else { */
 		path = "_files"
-	}
+/* 	} */
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		return "", err
