@@ -1,23 +1,25 @@
 package api
 
 import (
-	"fmt"
+	"encoding/json"
+	"io/ioutil"
 	"log"
 	"net/http"
-	"io/ioutil"
-	// "encoding/json"
+	"strconv"
+	"strings"
 )
 
-/* type ArticleInfo struct {
+type ArticleInfo struct {
+	Id uint64 `json:"id"`
 	Title string `json:"title"`
-	Desc string `json:desc`	
-} */
+	Type string `json:"type"`
+	Size int64 `json:"size"`
+	// Desc string `json:desc`
+}
 
-const LOCAL_DEBUG = false
+const LOCAL_DEBUG = true
 
 func ListHandler(w http.ResponseWriter, r *http.Request) {
-	/* 	fmt.Fprintf(w, "Done from another go file!\n")
-	   	return */
 	var path string
 	if LOCAL_DEBUG {
 		path = "C:\\Users\\Neko\\Documents\\GitHub\\simpublish\\api\\" + "_files"
@@ -28,8 +30,24 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Panic(err)
 	}
-	for _, file := range files {
-		fmt.Fprintf(w, file.Name() + "\n")
+	res := make([]ArticleInfo, len(files))
+	for i, file := range files {
+		log.Println(i)
+		filename := file.Name()
+		log.Printf("filename: %s\n", filename)
+		id_str := strings.Split(filename, "-")[0]
+		id, err := strconv.ParseUint(id_str, 10, 64)
+		if err != nil {
+			log.Panic(err)
+			continue
+		}
+		title := strings.Join(strings.Split(filename, "-")[1:], "-")
+		if strings.HasSuffix(title, ".html") {
+			title = title[:len(title)-5]
+		}
+		res[i] = ArticleInfo{Id: id, Title: title, Type: "html", Size: file.Size()}
 	}
-	return
+	log.Printf("res: %v\n", res)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(res)
 }

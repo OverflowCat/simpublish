@@ -72,5 +72,6 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 		log.Panic(err)
 	}
 	text := string(content)
+	w.Header().Set("Content-Type", "text/html")
     fmt.Fprintf(w, text)
 }

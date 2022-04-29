@@ -1,6 +1,6 @@
 <script>
-	import Header from '$lib/header/Header.svelte';
-	import '../app.css';
+	import Header from "$lib/header/Header.svelte";
+	import "../app.css";
 </script>
 
 <Header />
@@ -9,8 +9,8 @@
 	<slot />
 </main>
 
-<footer>
-	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+<footer> 
+	Published by <a href="https://github.com/OverflowCat/simpublish">Simpublish</a>
 </footer>
 
 <style>
@@ -33,9 +33,9 @@
 		padding: 40px;
 	}
 
-	footer a {
+	/* 	footer a {
 		font-weight: bold;
-	}
+	} */
 
 	@media (min-width: 480px) {
 		footer {
