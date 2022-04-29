@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -10,16 +11,28 @@ import (
 )
 
 type ArticleInfo struct {
-	Id uint64 `json:"id"`
+	Id    uint64 `json:"id"`
 	Title string `json:"title"`
-	Type string `json:"type"`
-	Size int64 `json:"size"`
+	Type  string `json:"type"`
+	Size  int64  `json:"size"`
 	// Desc string `json:desc`
 }
 
-const LOCAL_DEBUG = true
+const LOCAL_DEBUG = false
 
 func ListHandler(w http.ResponseWriter, r *http.Request) {
+	passwordFromCookie := ""
+	for _, cookie := range r.Cookies() {
+		if cookie.Name == "password" {
+			passwordFromCookie = cookie.Value
+		}
+	}
+	if !Auth(passwordFromCookie) {
+		w.WriteHeader(http.StatusUnauthorized)
+		fmt.Fprint(w, "")
+		return
+	}
+
 	var path string
 	if LOCAL_DEBUG {
 		path = "C:\\Users\\Neko\\Documents\\GitHub\\simpublish\\api\\" + "_files"

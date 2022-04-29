@@ -1,22 +1,25 @@
 <script>
     let password = "";
+    let message = "";
+    export let redirectURL = "";
     export let isAuthenticated = false;
-    import { onMount } from "svelte";
     import { auth } from "./auth";
+    import Cookies from "js-cookie";
+    isAuthenticated = Cookies.get("password") !== undefined;
+
     async function login() {
         const res = await auth(password);
-        console.log("Res is", res);
         const success = res["result"];
         if (success) {
             isAuthenticated = true;
-            onMount(() => {
-                alert("验证成功！");
-            });
+            message = "验证成功！";
+            Cookies.set("password", password, { expires: 31 });
+            if (redirectURL !== "") {
+                window.location.href = redirectURL;
+            }
         } else {
             isAuthenticated = false;
-            onMount(() => {
-                alert("密码错误或网络连接失败");
-            });
+            message = "验证失败！";
         }
     }
 </script>

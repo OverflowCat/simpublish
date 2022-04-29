@@ -3,20 +3,14 @@
 </script>
 
 <script>
-	import List from '$lib/List.svelte';
+	import List from "$lib/List.svelte";
 </script>
 
 <svelte:head>
 	<title>Home</title>
 </svelte:head>
-
+<h1>Simpublish</h1>
 <section>
-	<h1>
-		<div class="welcome">
-
-		</div>
-		Simpublish
-	</h1>
 	<List />
 </section>
 
@@ -28,9 +22,4 @@
 		align-items: center;
 		flex: 1;
 	}
-
-	h1 {
-		width: 100%;
-	}
-
 </style>

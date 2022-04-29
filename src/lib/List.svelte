@@ -1,20 +1,19 @@
 <script>
     export let count = 0;
     import VirtualList from "@sveltejs/svelte-virtual-list";
-    import { onMount } from "svelte";
     import Item from "./Item.svelte";
     import Login from "./Login/index.svelte";
     let items = [];
-    let isAuthenticated = false;
+    import Cookies from "js-cookie";
+    let isAuthenticated = true;
+    isAuthenticated = Cookies.get("password") !== undefined;
     function refreshItems() {
         if (isAuthenticated) {
-            onMount(() => {
-                fetch("/api/list")
-                    .then((res) => res.json())
-                    .then((res) => {
-                        items = res;
-                    });
-            });
+            fetch("/api/list")
+                .then((res) => res.json())
+                .then((res) => {
+                    items = res;
+                });
         }
     }
     $: count = items.length;

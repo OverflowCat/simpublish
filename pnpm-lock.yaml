@@ -7,6 +7,7 @@ specifiers:
   '@sveltejs/kit': next
   '@sveltejs/svelte-virtual-list': ^3.0.1
   cookie: ^0.4.1
+  js-cookie: ^3.0.1
   svelte: ^3.46.0
 
 dependencies:
@@ -14,6 +15,7 @@ dependencies:
   '@lukeed/uuid': 2.0.0
   '@sveltejs/svelte-virtual-list': 3.0.1
   cookie: 0.4.2
+  js-cookie: 3.0.1
 
 devDependencies:
   '@sveltejs/adapter-auto': 1.0.0-next.40
@@ -459,6 +461,11 @@ packages:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
     dev: true
+
+  /js-cookie/3.0.1:
+    resolution: {integrity: sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==}
+    engines: {node: '>=12'}
+    dev: false
 
   /kleur/4.1.4:
     resolution: {integrity: sha512-8QADVssbrFjivHWQU7KkMgptGTl6WAcSdlbBPY4uNF+mWr6DGcKrvY2w4FQJoXch7+fKMjj0dRrL75vk3k23OA==}
