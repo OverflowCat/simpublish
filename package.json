@@ -11,6 +11,7 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
+    "@vercel/node": "^1.14.1",
     "svelte": "^3.46.0"
   },
   "type": "module",
