@@ -9,7 +9,7 @@ import (
 
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	const LOCAL_DEBUG = true
+	const LOCAL_DEBUG = false
 	log.Println("New request!")
 	for _, cookie := range r.Cookies() {
 		log.Println("Found a cookie: ", cookie.Name, cookie.Value)
@@ -18,7 +18,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if LOCAL_DEBUG {
 		path = "C:\\Users\\Neko\\Documents\\GitHub\\simpublish\\api\\_files\\101-测试.html"
 	} else {
-		path = "/_files/01-测试.html"
+		path = "../output/01-测试.html"
 	}
  	content, err := ioutil.ReadFile(path)
 	if err != nil {
