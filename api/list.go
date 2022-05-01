@@ -35,9 +35,9 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 
 	var path string
 	if LOCAL_DEBUG {
-		path = "C:\\Users\\Neko\\Documents\\GitHub\\simpublish\\api\\" + "_files"
+		path = "C:\\Users\\Neko\\Documents\\GitHub\\simpublish\\api\\" + "_output"
 	} else {
-		path = "_files"
+		path = "_output"
 	}
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
@@ -62,5 +62,6 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("res: %v\n", res)
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "s-maxage=3600")
 	json.NewEncoder(w).Encode(res)
 }

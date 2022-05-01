@@ -12,7 +12,7 @@
             fetch("/api/list")
                 .then((res) => res.json())
                 .then((res) => {
-                    items = res;
+                    items = res.sort((a, b) => b.id - a.id);
                 });
         }
     }

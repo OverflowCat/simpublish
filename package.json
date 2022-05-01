@@ -1,7 +1,8 @@
 {
   "private": true,
-  "name": "sveltekit",
-  "version": "0.0.1",
+  "name": "simpublish",
+  "version": "0.6.1",
+  "description": "Publish SimpRead output HTMLs to create permalinks",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",

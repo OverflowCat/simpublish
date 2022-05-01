@@ -1,18 +1,18 @@
 <script>
-	import { page } from '$app/stores';
-	import logo from './logo.svg';
+	import { page } from "$app/stores";
+	// import logo from './logo.svg';
 </script>
 
 <header>
 	<div class="corner">
+		<!--
 		<a href="/">
 			<img src={logo} alt="Logo" />
 		</a>
+	-->
 	</div>
 
-	<nav>
-
-	</nav>
+	<nav />
 
 	<div class="corner">
 		<!-- TODO put something else here? github link? -->

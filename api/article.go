@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/base64"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -8,7 +9,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"encoding/base64"
 )
 
 /* const LOCAL_DEBUG = false */
@@ -17,9 +17,9 @@ func GetArticleById(id uint64) (string, error) {
 	// Read all files in the directory and find the file starting with the given ID
 	var path string
 	/* 	if LOCAL_DEBUG {
-		path = "C:\\Users\\Neko\\Documents\\GitHub\\simpublish\\api\\" + "_files"
+		path = "C:\\Users\\Neko\\Documents\\GitHub\\simpublish\\api\\" + "_output"
 	} else { */
-	path = "_files"
+	path = "_output"
 	/* 	} */
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
@@ -46,7 +46,7 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 		pageURL := r.URL.String()
 		// redirect to login page
 		b64 := base64.StdEncoding.EncodeToString([]byte(pageURL))
-		http.Redirect(w, r, "/login-to-" + b64, http.StatusUnauthorized)
+		http.Redirect(w, r, "/login-to-"+b64, http.StatusUnauthorized)
 		return
 	}
 
@@ -73,9 +73,9 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 
 	var path string
 	if LOCAL_DEBUG {
-		path = "C:\\Users\\Neko\\Documents\\GitHub\\simpublish\\api\\_files\\" + filename
+		path = "C:\\Users\\Neko\\Documents\\GitHub\\simpublish\\api\\_output\\" + filename
 	} else {
-		path = "_files/" + filename
+		path = "_output/" + filename
 	}
 	log.Println("Now opening " + path)
 	content, err := ioutil.ReadFile(path)
