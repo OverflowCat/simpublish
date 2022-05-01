@@ -46,6 +46,9 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 		pageURL := r.URL.String()
 		// redirect to login page
 		b64 := base64.StdEncoding.EncodeToString([]byte(pageURL))
+		html := `<html><head><title>401 Unauthorized</title></head><body><h1>请先登录</h1></body></html>`
+		w.WriteHeader(http.StatusUnauthorized)
+		fmt.Fprint(w, html)
 		http.Redirect(w, r, "/login-to-"+b64, http.StatusUnauthorized)
 		return
 	}
@@ -84,5 +87,6 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	text := string(content)
 	w.Header().Set("Content-Type", "text/html")
+	w.Header().Set("Cache-Control", "s-maxage=3600")
 	fmt.Fprintf(w, text)
 }

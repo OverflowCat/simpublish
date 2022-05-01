@@ -12,6 +12,8 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
+    "carbon-components-svelte": "^0.63.4",
+    "carbon-icons-svelte": "^11.0.1",
     "svelte": "^3.46.0"
   },
   "type": "module",

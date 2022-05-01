@@ -5,6 +5,9 @@
     export let isAuthenticated = false;
     import { auth } from "./auth";
     import Cookies from "js-cookie";
+    import { Button } from "carbon-components-svelte";
+    import Login from "carbon-icons-svelte/lib/Login.svelte";
+    import { PasswordInput } from "carbon-components-svelte";
     isAuthenticated = Cookies.get("password") !== undefined;
 
     async function login() {
@@ -24,10 +27,18 @@
     }
 </script>
 
-<div>
-    <label>
-        密码
-        <input type="password" bind:value={password} />
-    </label>
-    <button on:click={login}> 验证 </button>
+<div class="passwdinput">
+    <PasswordInput
+        size="xl"
+        labelText="密码"
+        placeholder="环境变量中设置的密码…"
+        bind:value={password}
+    />
+    <Button icon={Login} on:click={login}>验证</Button>
 </div>
+
+<style>
+    .passwdinput {
+        width: 90%;
+    }
+</style>

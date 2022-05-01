@@ -20,7 +20,7 @@
     $: isAuthenticated, refreshItems();
 </script>
 
-<div>
+<div class="container">
     {#if isAuthenticated}
         <VirtualList {items} let:item height="500px">
             <Item id={item.id} title={item.title} size={item.size} />
@@ -29,3 +29,10 @@
         <Login bind:isAuthenticated />
     {/if}
 </div>
+
+<style>
+    .container {
+        width: 90%;
+        margin-top: 8px;
+    }
+</style>
