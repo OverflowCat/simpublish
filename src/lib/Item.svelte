@@ -1,4 +1,7 @@
 <script>
+    import { Tile } from "carbon-components-svelte";
+    import { CopyButton } from "carbon-components-svelte";
+
     export let title = "",
         id = 0,
         size = 0;
@@ -15,15 +18,26 @@
     }
 </script>
 
-<div class="container">
-    <div id="id">{id}</div>
-    <span id="title"><a href="/articles/{id}/">{title}</a></span>
-    <span id="size">{@html formatSizeUnits(size)}</span>
+<div class="item">
+    <Tile>
+        <div id="id">{id}</div>
+        <span id="title"><a href="/articles/{id}/">{title}</a></span>
+        <span id="copy">
+            <CopyButton
+                text="{document.location.origin}/articles/{id}/"
+                feedback=""
+            />
+        </span>
+        <span id="size">{@html formatSizeUnits(size)}</span>
+    </Tile>
 </div>
 
 <style>
-    .container {
+    .item {
         padding: 4px;
+    }
+    #copy {
+        float: right;
     }
     #id {
         font-size: smaller;
@@ -59,7 +73,7 @@
         text-decoration-color: rgb(222, 222, 222);
         text-decoration-skip: ink;
     }
-    
+
     a:hover {
         color: #457dfb;
         right: 0;
@@ -105,5 +119,4 @@
             right: 0;
         }
     }
-
 </style>

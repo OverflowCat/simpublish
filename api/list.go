@@ -62,6 +62,6 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("res: %v\n", res)
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Cache-Control", "s-maxage=3600")
+	w.Header().Set("Cache-Control", "s-maxage=3600") // cache
 	json.NewEncoder(w).Encode(res)
 }

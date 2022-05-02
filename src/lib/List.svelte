@@ -3,7 +3,18 @@
     import VirtualList from "@sveltejs/svelte-virtual-list";
     import Item from "./Item.svelte";
     import Login from "./Login/index.svelte";
-    let items = [];
+
+    let items = [
+        {
+            title: "Example 1",
+            id: 104,
+            size: 2500
+        },{
+            title: "Example 3",
+            id: 567,
+            size: 1246
+        }
+    ];
     import Cookies from "js-cookie";
     let isAuthenticated = true;
     isAuthenticated = Cookies.get("password") !== undefined;
