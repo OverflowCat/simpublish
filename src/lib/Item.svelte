@@ -1,10 +1,16 @@
 <script>
-    import { Tile } from "carbon-components-svelte";
-    import { CopyButton } from "carbon-components-svelte";
+    import {
+        Tile,
+        Button,
+        SkeletonPlaceholder,
+    } from "carbon-components-svelte";
+    import { Grid, Row, Column } from "carbon-components-svelte";
+    import CopyLink from "carbon-icons-svelte/lib/CopyLink.svelte";
 
     export let title = "",
         id = 0,
-        size = 0;
+        size = 0,
+        skeleton = true;
     function formatSizeUnits(bytes) {
         if ((bytes >> 30) & 0x3ff)
             bytes = (bytes >>> 30) + "." + (bytes & (3 * 0x3ff)) + " GB";
@@ -16,25 +22,48 @@
         else bytes = bytes + "Byte";
         return bytes;
     }
+    function copyLink(text) {
+        const url = window.location.origin + text;
+        navigator.clipboard.writeText(url);
+    }
 </script>
 
 <div class="item">
     <Tile>
-        <div id="id">{id}</div>
-        <span id="title"><a href="/articles/{id}/">{title}</a></span>
-        <span id="copy">
-            <CopyButton
-                text="{document.location.origin}/articles/{id}/"
-                feedback=""
-            />
-        </span>
-        <span id="size">{@html formatSizeUnits(size)}</span>
+        <Row>
+            <Column sm={8} md={8} lg={8}>
+                {#if skeleton}
+                    <SkeletonPlaceholder style="height: 1.5rem; width: 100%;" />
+                {:else}
+                    <div id="id">
+                        {id}
+                    </div>
+                    <span id="title">
+                        <a href="/articles/{id}/">{title}</a>
+                    </span>
+                    <span id="size">{@html formatSizeUnits(size)}</span>
+                {/if}
+            </Column>
+            <Column sm={2} md={2} lg={2}>
+                <span id="copy" skeleton>
+                    <Button
+                        tooltipPosition="left"
+                        tooltipAlignment="end"
+                        iconDescription="Copy"
+                        icon={CopyLink}
+                        kind="ghost"
+                        size="small"
+                        on:click={() => copyLink(`/articles/${id}/`)}
+                    />
+                </span>
+            </Column>
+        </Row>
     </Tile>
 </div>
 
 <style>
     .item {
-        padding: 4px;
+        padding: 2px;
     }
     #copy {
         float: right;
