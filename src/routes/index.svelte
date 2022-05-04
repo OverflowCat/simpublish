@@ -16,14 +16,11 @@
 
 <style>
 	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 1;
+		height: 100%;
 	}
 
 	h1 {
 		font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+		font-size: large;
 	}
 </style>

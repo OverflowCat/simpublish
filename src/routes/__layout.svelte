@@ -9,12 +9,25 @@
 	<slot />
 </main>
 
-<footer> 
-	Published by <a href="https://github.com/OverflowCat/simpublish">Simpublish</a>
+<footer>
+	Published by 
+	<a href="https://github.com/OverflowCat/simpublish">Simpublish </a>
 </footer>
 
 <style>
+	footer {
+		text-align: center;
+		height: 2rem;
+	}
 	main {
+		padding: 1rem;
+		width: 100%;
+		max-width: 1024px;
+		margin: 0 auto;
+		box-sizing: border-box;
+		height: calc(100% - 3rem);
+	}
+	/* 	main {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
@@ -24,22 +37,9 @@
 		margin: 0 auto;
 		box-sizing: border-box;
 	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 40px;
-	}
-
-	/* 	footer a {
-		font-weight: bold;
-	} */
-
 	@media (min-width: 480px) {
 		footer {
-			padding: 40px 0;
+			padding: 8px 0;
 		}
-	}
+	} */
 </style>

@@ -3,6 +3,7 @@
         Tile,
         Button,
         SkeletonPlaceholder,
+        truncate,
     } from "carbon-components-svelte";
     import CopyLink from "carbon-icons-svelte/lib/CopyLink.svelte";
 
@@ -38,16 +39,18 @@
                 <div id="id">
                     {id}
                 </div>
-                <span id="title">
+                <span id="title" use:truncate>
                     <a href="/articles/{id}/">{title}</a>
                 </span>
-                <span id="size">{@html formatSizeUnits(size)}</span>
+                <span id="size" class="hidden-mobile">
+                    {@html formatSizeUnits(size)}
+                </span>
             {/if}
             <span id="copy">
                 <Button
                     tooltipPosition="left"
                     tooltipAlignment="end"
-                    iconDescription="Copy"
+                    iconDescription="复制永久链接"
                     icon={CopyLink}
                     kind="ghost"
                     size="small"
@@ -84,11 +87,15 @@
         background-color: rgb(200, 200, 200);
         margin-top: 1px;
         padding: 2px;
-        vertical-align: middle;
+        padding-top: 7px;
     }
     #title {
         margin-left: 8px;
         margin-right: 8px;
+        padding-top: 6px;
+        vertical-align: text-bottom;
+        flex-grow: 1;
+        font-weight: 600;
     }
     #size {
         color: rgb(62, 62, 62);
@@ -99,6 +106,9 @@
         float: right;
         margin-top: 1px;
         padding: 2px;
+        padding-top: 7.5px;
+        min-width: 80px;
+        text-align: right;
     }
     a {
         color: #2f56b0;
@@ -151,6 +161,11 @@
         100% {
             left: 100%;
             right: 0;
+        }
+    }
+    @media (max-width: 767px) {
+        .hidden-mobile {
+            display: none;
         }
     }
 </style>

@@ -23,9 +23,34 @@
             size: 1246,
         },
         {
-            title: "Example 6",
+            title: "Example 6 Long long long longLong long long longLong long long long long long long long long title",
             id: 666,
             size: 114514,
+        },
+        {
+            title: "Example 1",
+            id: 88,
+            size: 2500,
+        },
+        {
+            title: "Example 2jj",
+            id: 4894,
+            size: 1246,
+        },
+        {
+            title: "Example 6 Long long long longLong long long longLong long long long long long long long long title",
+            id: 666,
+            size: 114514,
+        },
+        {
+            title: "Example 1",
+            id: 88,
+            size: 2500,
+        },
+        {
+            title: "Example 2jj",
+            id: 4894,
+            size: 1246,
         },
     ];
     let items = DEFAULT_ITEMS;
@@ -50,7 +75,7 @@
 
 <div class="container">
     {#if isAuthenticated}
-        <VirtualList {items} let:item height="500px">
+        <VirtualList {items} let:item >
             <Item id={item.id} title={item.title} size={item.size} {skeleton} />
         </VirtualList>
     {:else}
@@ -60,7 +85,10 @@
 
 <style>
     .container {
-        width: 90%;
+        width: 100%;
         margin-top: 8px;
+        margin-left: 4px;
+        margin-right: 4px;
+        height: calc(100vh - 10rem);
     }
 </style>
