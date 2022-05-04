@@ -4,7 +4,6 @@
         Button,
         SkeletonPlaceholder,
     } from "carbon-components-svelte";
-    import { Grid, Row, Column } from "carbon-components-svelte";
     import CopyLink from "carbon-icons-svelte/lib/CopyLink.svelte";
 
     export let title = "",
@@ -30,43 +29,49 @@
 
 <div class="item">
     <Tile>
-        <Row>
-            <Column sm={8} md={8} lg={8}>
-                {#if skeleton}
-                    <SkeletonPlaceholder style="height: 1.5rem; width: 100%;" />
-                {:else}
-                    <div id="id">
-                        {id}
-                    </div>
-                    <span id="title">
-                        <a href="/articles/{id}/">{title}</a>
-                    </span>
-                    <span id="size">{@html formatSizeUnits(size)}</span>
-                {/if}
-            </Column>
-            <Column sm={2} md={2} lg={2}>
-                <span id="copy" skeleton>
-                    <Button
-                        tooltipPosition="left"
-                        tooltipAlignment="end"
-                        iconDescription="Copy"
-                        icon={CopyLink}
-                        kind="ghost"
-                        size="small"
-                        on:click={() => copyLink(`/articles/${id}/`)}
-                    />
+        <div class="container">
+            {#if skeleton}
+                <span id="skeleton">
+                    <SkeletonPlaceholder style="height: 2rem; width: 100%;" />
                 </span>
-            </Column>
-        </Row>
+            {:else}
+                <div id="id">
+                    {id}
+                </div>
+                <span id="title">
+                    <a href="/articles/{id}/">{title}</a>
+                </span>
+                <span id="size">{@html formatSizeUnits(size)}</span>
+            {/if}
+            <span id="copy">
+                <Button
+                    tooltipPosition="left"
+                    tooltipAlignment="end"
+                    iconDescription="Copy"
+                    icon={CopyLink}
+                    kind="ghost"
+                    size="small"
+                    on:click={() => copyLink(`/articles/${id}/`)}
+                    disabled={skeleton}
+                />
+            </span>
+        </div>
     </Tile>
 </div>
 
 <style>
+    .container {
+        display: flex;
+        column-gap: 4px;
+    }
+    #skeleton {
+        width: 100%;
+    }
     .item {
         padding: 2px;
     }
     #copy {
-        float: right;
+        width: 32px;
     }
     #id {
         font-size: smaller;
