@@ -1,18 +1,21 @@
 <script>
+    import "carbon-components-svelte/css/all.css";
     let password = "";
     let message = "";
     export let redirectURL = "";
     export let isAuthenticated = false;
     import { auth } from "./auth";
     import Cookies from "js-cookie";
-    import { Button, ToastNotification } from "carbon-components-svelte";
+    import { Button, ToastNotification, Theme } from "carbon-components-svelte";
     import Login from "carbon-icons-svelte/lib/Login.svelte";
     import Clean from "carbon-icons-svelte/lib/Clean.svelte";
     import { PasswordInput } from "carbon-components-svelte";
+    import { onMount } from "svelte";
     isAuthenticated = Cookies.get("password") !== undefined;
     let isCookieCleared = false;
     let isWrongPassword = false;
     async function login() {
+        isWrongPassword = false;
         const res = await auth(password);
         const success = res["result"];
         if (success) {
@@ -36,9 +39,31 @@
         isAuthenticated = false;
         isCookieCleared = true;
     }
+    
+    let theme = "white"; // "white" | "g10" | "g80" | "g90" | "g100"
+    onMount(() => {
+        const mediaQueryListDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+        );
+        if (mediaQueryListDark.matches) {
+            theme = "g90";
+        }
+
+        function handleChange(mediaQueryListEvent) {
+            if (mediaQueryListEvent.matches) {
+                theme = "g90";
+            } else {
+                theme = "white";
+            }
+        }
+
+        // 添加主题变动监控事件
+        mediaQueryListDark.addListener(handleChange);
+    });
 </script>
 
 <div class="passwdinput">
+    <Theme bind:theme />
     <PasswordInput
         size="xl"
         labelText="密码"

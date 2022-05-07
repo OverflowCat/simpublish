@@ -5,6 +5,8 @@
     import Item from "./Item.svelte";
     import Login from "./Login/index.svelte";
     import Cookies from "js-cookie";
+    import { onMount } from "svelte";
+    import { Theme } from "carbon-components-svelte";
 
     const DEFAULT_ITEMS = [
         {
@@ -71,11 +73,33 @@
     }
     $: count = items.length;
     $: isAuthenticated, refreshItems();
+
+    let theme = "white"; // "white" | "g10" | "g80" | "g90" | "g100"
+    onMount(() => {
+        const mediaQueryListDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+        );
+        if (mediaQueryListDark.matches) {
+            theme = "g90";
+        }
+
+        function handleChange(mediaQueryListEvent) {
+            if (mediaQueryListEvent.matches) {
+                theme = "g90";
+            } else {
+                theme = "white";
+            }
+        }
+
+        // 添加主题变动监控事件
+        mediaQueryListDark.addListener(handleChange);
+    });
 </script>
 
 <div class="container">
+    <Theme bind:theme />
     {#if isAuthenticated}
-        <VirtualList {items} let:item >
+        <VirtualList {items} let:item>
             <Item id={item.id} title={item.title} size={item.size} {skeleton} />
         </VirtualList>
     {:else}
