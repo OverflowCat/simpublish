@@ -87,6 +87,6 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	text := string(content)
 	w.Header().Set("Content-Type", "text/html")
-	w.Header().Set("Cache-Control", "s-maxage=3600") // cache
+	// w.Header().Set("Cache-Control", "s-maxage=3600") // cache
 	fmt.Fprintf(w, text)
 }
