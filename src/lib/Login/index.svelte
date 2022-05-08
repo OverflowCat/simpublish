@@ -1,5 +1,4 @@
 <script>
-    import "carbon-components-svelte/css/all.css";
     let password = "";
     let message = "";
     export let redirectURL = "";
@@ -39,31 +38,9 @@
         isAuthenticated = false;
         isCookieCleared = true;
     }
-    
-    let theme = "white"; // "white" | "g10" | "g80" | "g90" | "g100"
-    onMount(() => {
-        const mediaQueryListDark = window.matchMedia(
-            "(prefers-color-scheme: dark)"
-        );
-        if (mediaQueryListDark.matches) {
-            theme = "g90";
-        }
-
-        function handleChange(mediaQueryListEvent) {
-            if (mediaQueryListEvent.matches) {
-                theme = "g90";
-            } else {
-                theme = "white";
-            }
-        }
-
-        // 添加主题变动监控事件
-        mediaQueryListDark.addListener(handleChange);
-    });
 </script>
 
 <div class="passwdinput">
-    <Theme bind:theme />
     <PasswordInput
         size="xl"
         labelText="密码"

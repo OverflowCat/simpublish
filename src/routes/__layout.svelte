@@ -1,9 +1,24 @@
 <script>
 	import Header from "$lib/header/Header.svelte";
 	import "../app.css";
+	import "carbon-components-svelte/css/all.css";
+	import { Theme } from "carbon-components-svelte";
+	let theme = "white"; // "white" | "g10" | "g80" | "g90" | "g100"
+	import { onMount } from "svelte";
+	onMount(() => {
+		const mediaQueryListDark = window.matchMedia(
+			"(prefers-color-scheme: dark)"
+		);
+		if (mediaQueryListDark.matches) theme = "g90";
+		function handleChange(mediaQueryListEvent) {
+			theme = mediaQueryListEvent.matches ? "g90" : "white";
+		}
+		mediaQueryListDark.addListener(handleChange);
+	});
 </script>
 
 <Header />
+<Theme bind:theme />
 
 <main>
 	<slot />
