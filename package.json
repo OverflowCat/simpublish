@@ -19,6 +19,7 @@
   "type": "module",
   "dependencies": {
     "@fontsource/fira-mono": "^4.5.0",
+    "@lottiefiles/svelte-lottie-player": "^0.2.0",
     "@lukeed/uuid": "^2.0.0",
     "@sveltejs/svelte-virtual-list": "^3.0.1",
     "cookie": "^0.4.1",

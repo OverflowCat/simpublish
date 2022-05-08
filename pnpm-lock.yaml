@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@fontsource/fira-mono': ^4.5.0
+  '@lottiefiles/svelte-lottie-player': ^0.2.0
   '@lukeed/uuid': ^2.0.0
   '@sveltejs/adapter-auto': next
   '@sveltejs/kit': next
@@ -14,6 +15,7 @@ specifiers:
 
 dependencies:
   '@fontsource/fira-mono': 4.5.8
+  '@lottiefiles/svelte-lottie-player': 0.2.0
   '@lukeed/uuid': 2.0.0
   '@sveltejs/svelte-virtual-list': 3.0.1
   cookie: 0.4.2
@@ -21,7 +23,7 @@ dependencies:
 
 devDependencies:
   '@sveltejs/adapter-auto': 1.0.0-next.40
-  '@sveltejs/kit': 1.0.0-next.324_svelte@3.47.0
+  '@sveltejs/kit': 1.0.0-next.326_svelte@3.47.0
   carbon-components-svelte: 0.63.4
   carbon-icons-svelte: 11.0.1
   svelte: 3.47.0
@@ -35,6 +37,12 @@ packages:
   /@iarna/toml/2.2.5:
     resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
     dev: true
+
+  /@lottiefiles/svelte-lottie-player/0.2.0:
+    resolution: {integrity: sha512-sV8YkO8hCDGq67LCCqjT+JW6cAbVCIw9wtgrOWz+Ao6Q8cD7ZvdsCiipSIMIH55Ja6MWwEXP4N4nKD+jL3XQLg==}
+    dependencies:
+      lottie-web: 5.9.4
+    dev: false
 
   /@lukeed/csprng/1.0.1:
     resolution: {integrity: sha512-uSvJdwQU5nK+Vdf6zxcWAY2A8r7uqe+gePwLWzJ+fsQehq18pc0I2hJKwypZ2aLM90+Er9u1xn4iLJPZ+xlL4g==}
@@ -85,8 +93,8 @@ packages:
       esbuild: 0.14.38
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.324_svelte@3.47.0:
-    resolution: {integrity: sha512-/CGW9rQpHQLBb2EcMw08yelD/C9hTsypymctUWdhryMTI8n1VWb0gkUcSHsz8n8oAAbKLXqwyHqeLATfcIMg2w==}
+  /@sveltejs/kit/1.0.0-next.326_svelte@3.47.0:
+    resolution: {integrity: sha512-prJqmXZ2H1wmFfnMw7wDujfbkcA8vuubuqUkpVVmXhfh2+SEzQscPTNwxoE5EJxb5sywtLWEvYx3hv1gPS4Lvg==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:
@@ -489,6 +497,10 @@ packages:
     resolution: {integrity: sha512-8QADVssbrFjivHWQU7KkMgptGTl6WAcSdlbBPY4uNF+mWr6DGcKrvY2w4FQJoXch7+fKMjj0dRrL75vk3k23OA==}
     engines: {node: '>=6'}
     dev: true
+
+  /lottie-web/5.9.4:
+    resolution: {integrity: sha512-bSs1ZTPifnBVejO1MnQHdfrKfcn02YTCmgOh2wcAEICqRA0V7GzDh8FnwXY6+EzT+i8XOunaIloo/5xC5YNbsA==}
+    dev: false
 
   /magic-string/0.26.1:
     resolution: {integrity: sha512-ndThHmvgtieXe8J/VGPjG+Apu7v7ItcD5mhEIvOscWjPF/ccOiLxHaSuCAS2G+3x4GKsAbT8u7zdyamupui8Tg==}
