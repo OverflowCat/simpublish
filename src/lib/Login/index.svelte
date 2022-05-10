@@ -51,8 +51,8 @@
 </script>
 
 <div class="passwdinput">
-    <h2>需要登录</h2>
     {#if isPageLoaded}
+        <h2>需要登录</h2>
         <div class="lottiecontainer">
             <LottiePlayer
                 src="https://assets7.lottiefiles.com/packages/lf20_dmt1io0c.json"
@@ -73,6 +73,9 @@
             bind:value={password}
         />
     {:else}
+        <div class="h2container">
+            <SkeletonPlaceholder style="height: 42px; width: 138px;" />
+        </div>
         <div class="lottiecontainer">
             <SkeletonPlaceholder style="height: 128px; width: 128px;" />
         </div>
@@ -81,15 +84,20 @@
         </div>
     {/if}
 
-    <Button icon={Login} on:click={login}>验证密码</Button>
+    <Button icon={Login} on:click={login} skeleton={!isPageLoaded}
+        >验证密码</Button
+    >
     <Button
         disabled={isCookieCleared}
+        skeleton={!isPageLoaded}
         kind="danger-tertiary"
         icon={Clean}
         onLclick={clearCookie}
         >清除 Cookie
     </Button>
-    <p class="info">如果你修改了密码，请尝试清除 Cookie 后再次登录。</p>
+    {#if isPageLoaded}
+        <p class="info">如果你修改了密码，请尝试清除 Cookie 后再次登录。</p>
+    {/if}
     {#if isWrongPassword}
         <ToastNotification
             title="验证失败"
@@ -111,14 +119,21 @@
     h2 {
         text-align: center;
     }
+    .h2container,
+    h2 {
+        display: flex;
+        justify-content: center;
+        height: 48px;
+        margin: 6px;
+        margin-left: 16px;
+    }
     .lottiecontainer {
         margin: 6px;
         margin-left: 16px;
         display: flex;
         justify-content: center;
     }
-    
-    .passwordskeleton{
+    .passwordskeleton {
         margin-top: 4px;
         margin-bottom: 6px;
     }

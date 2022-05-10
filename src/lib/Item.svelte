@@ -115,6 +115,7 @@
         position: relative;
         transition: color 0.4s ease-out;
         text-decoration-color: rgb(222, 222, 222);
+        /* mix-blend-mode: difference; */
         text-decoration-skip: ink;
     }
 
@@ -166,6 +167,21 @@
     @media (max-width: 767px) {
         .hidden-mobile {
             display: none;
+        }
+    }
+
+    @media screen and (prefers-color-scheme: dark) {
+        a {
+            text-decoration-color: rgb(80, 80, 80);
+            color: #5e8dec;
+        }
+
+        #id {
+            background-color: rgb(80, 80, 80);
+        }
+
+        a:hover {
+            color: #8eabe6;
         }
     }
 </style>

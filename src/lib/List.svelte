@@ -56,6 +56,7 @@
     let items = DEFAULT_ITEMS;
     let isAuthenticated = true;
     isAuthenticated = Cookies.get("password") !== undefined;
+    skeleton = false;
     function refreshItems() {
         if (isAuthenticated) {
             fetch("/api/list")
@@ -73,7 +74,7 @@
     $: isAuthenticated, refreshItems();
 </script>
 
-<div class="container">
+<div class="container scrollview">
     {#if isAuthenticated}
         <VirtualList {items} let:item>
             <Item id={item.id} title={item.title} size={item.size} {skeleton} />
