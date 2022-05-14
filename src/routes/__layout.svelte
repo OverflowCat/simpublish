@@ -1,6 +1,7 @@
 <script>
 	import Header from "$lib/header/Header.svelte";
-	import "../app.css";
+	import "../reset.css";
+	import "../custom.css";
 	import "carbon-components-svelte/css/all.css";
 	import { Theme } from "carbon-components-svelte";
 	let theme = "white"; // "white" | "g10" | "g80" | "g90" | "g100"

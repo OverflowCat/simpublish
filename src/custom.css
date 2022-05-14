@@ -1,0 +1,10 @@
+:root {
+    --accent-color-light: #2f56b0;
+    --accent-color-dark: #5e8dec;
+    --accent-color-light-hover: #457dfb;
+    --accent-color-dark-hover: #8eabe6;
+    --tertiary-color-light: #ff0000;
+    --tertiary-color-dark: rgb(80, 80, 80);
+}
+
+/* Here goes your custom CSS… */
