@@ -183,5 +183,9 @@
         a:hover {
             color: var(--accent-color-dark-hover);
         }
+
+        #size {
+            color: #cccccc;
+        }
     }
 </style>

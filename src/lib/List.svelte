@@ -5,6 +5,7 @@
     import Item from "./Item.svelte";
     import Login from "./Login/index.svelte";
     import Cookies from "js-cookie";
+    let isDebug = true;
 
     const DEFAULT_ITEMS = [
         {
@@ -54,17 +55,17 @@
         },
     ];
     let items = DEFAULT_ITEMS;
-    let isAuthenticated = true;
-    isAuthenticated = Cookies.get("password") !== undefined;
-    skeleton = false;
+    let isAuthenticated = isDebug || (Cookies.get("password") !== undefined);
     function refreshItems() {
-        if (isAuthenticated) {
+        if (isAuthenticated && !isDebug) {
             fetch("/api/list")
                 .then((res) => res.json())
                 .then((res) => {
                     items = res.sort((a, b) => b.id - a.id);
                     skeleton = false;
                 });
+        } else if (isDebug) {
+            skeleton = false;
         } else {
             items = DEFAULT_ITEMS;
             skeleton = true;

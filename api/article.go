@@ -47,7 +47,9 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 		// redirect to login page
 		b64 := base64.StdEncoding.EncodeToString([]byte(pageURL))
 		redirect_path := "/login-to-" + b64
-		html := fmt.Sprintf("<html><meta http-equiv=\"refresh\" content=\"0; url=/{%s}/\">\n", redirect_path)
+		html := `<html>
+		<meta http-equiv="refresh" content="0; url=.` + redirect_path + `" />
+		</html>`
 		w.WriteHeader(http.StatusTemporaryRedirect)
 		fmt.Fprint(w, html)
 		// http.Redirect(w, r, redirect_path, http.StatusTemporaryRedirect)
