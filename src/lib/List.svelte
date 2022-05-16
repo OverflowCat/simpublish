@@ -5,7 +5,7 @@
     import Item from "./Item.svelte";
     import Login from "./Login/index.svelte";
     import Cookies from "js-cookie";
-    let isDebug = true;
+    let isDebug = false;
 
     const DEFAULT_ITEMS = [
         {

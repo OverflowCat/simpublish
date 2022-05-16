@@ -55,10 +55,14 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 		title := strings.Join(strings.Split(filename, "-")[1:], "-")
+		var filetype = "html"
 		if strings.HasSuffix(title, ".html") {
 			title = title[:len(title)-5]
+		} else if strings.HasSuffix(title, ".md") {
+			filetype = "md"
+			title = title[:len(title)-3]
 		}
-		res[i] = ArticleInfo{Id: id, Title: title, Type: "html", Size: file.Size()}
+		res[i] = ArticleInfo{Id: id, Title: title, Type: filetype, Size: file.Size()}
 	}
 	// log.Printf("res: %v\n", res)
 	w.Header().Set("Content-Type", "application/json")

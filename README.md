@@ -1,44 +1,42 @@
 # Simpublish
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte), deployed to [Vercel](https://vercel.com).
+简介
 
-## Deploy Your Own
+## 一键部署
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fvercel%2Ftree%2Fmain%2Fexamples%2Fsveltekit&project-name=sveltekit-vercel&repository-name=sveltekit-vercel&demo-title=SvelteKit%20%2B%20Vercel&demo-description=A%20SvelteKit%20app%20optimized%20Edge-first.&demo-url=https%3A%2F%2Fsveltekit-template.vercel.app%2F)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FOverflowCat%2Fsimpublish&env=SIMPUBLISH_PASSWD&envDescription=%E8%AE%BF%E9%97%AE%E5%AF%86%E7%A0%81&project-name=my-simpublish-site&repository-name=my-simpublish-site&demo-title=Simpublish%20Demo&demo-url=https%3A%2F%2Fsimpublish.vercel.app%2F)
 
-_Live Example: https://sveltekit-template.vercel.app_
+_Demo: https://simpublish.vercel.app_
 
-## Creating a project
+## 使用说明
 
-If you're seeing this, you've probably already done this step. Congrats!
+首先需要清空项目中的 `api/_output` 中的示例文件，然后将简悦自动化的 `output` 文件夹中的 HTML 或 Markdown 文件放入 `api/_output` 即可。该操作可以通过各类自动化软件完成，如 Windows 的 [DropIt](http://www.dropitproject.com/) 和 macOS 的 [Hazel](https://www.noodlesoft.com/)。
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+### 自定义
 
-# create a new project in my-app
-npm init svelte@next my-app
-```
+[`src/custom.css`](src/custom.css) 定义了主题色，可以自行更改。并可在其后附上自定义的 CSS，将会全局生效。
 
-> Note: the `@next` is temporary
+[`src/custom.js`](src/custom.js) 中设定了显示在文章列表顶部的文章名称和 slogan。
 
-## Developing
+## 开发
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### 安装依赖
 
-```bash
-npm run dev
+`pnpm install`
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+### 调试
 
-## Building
-
-This uses the adapter-auto for SvelteKit, which detects Vercel and runs adapter-vercel on your behalf.
+在没有后端的情况下，可以将 `List.svelte` 中的 `isDebug` 设置为 true 以跳过登录界面，载入 mock 的文章列表。
 
 ```bash
-npm run build
+pnpm run dev
+
+# 在浏览器中打开
+pnpm run dev -- --open
 ```
 
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+## 构建
+
+```bash
+pnpm run build
+```

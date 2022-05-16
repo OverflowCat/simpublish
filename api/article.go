@@ -4,6 +4,8 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"github.com/gomarkdown/markdown"
+	"github.com/gomarkdown/markdown/html"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -16,11 +18,7 @@ import (
 func GetArticleById(id uint64) (string, error) {
 	// Read all files in the directory and find the file starting with the given ID
 	var path string
-	/* 	if LOCAL_DEBUG {
-		path = "C:\\Users\\Neko\\Documents\\GitHub\\simpublish\\api\\" + "_output"
-	} else { */
 	path = "_output"
-	/* 	} */
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		return "", err
@@ -35,7 +33,6 @@ func GetArticleById(id uint64) (string, error) {
 }
 
 func ArticleHandler(w http.ResponseWriter, r *http.Request) {
-	log.Println("New request!")
 	passwordFromCookie := ""
 	for _, cookie := range r.Cookies() {
 		if cookie.Name == "password" {
@@ -44,11 +41,10 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	if !Auth(passwordFromCookie) {
 		pageURL := r.URL.String()
-		// redirect to login page
 		b64 := base64.StdEncoding.EncodeToString([]byte(pageURL))
 		redirect_path := "/login-to-" + b64
 		html := `<html>
-		<meta http-equiv="refresh" content="0; url=.` + redirect_path + `" />
+		<meta http-equiv="refresh" content="0; url=..` + redirect_path + `" />
 		</html>`
 		w.WriteHeader(http.StatusTemporaryRedirect)
 		fmt.Fprint(w, html)
@@ -89,6 +85,19 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 		log.Panic(err)
 	}
 	text := string(content)
+	if strings.HasSuffix(filename, ".md") {
+		filename = filename[:len(filename)-3]
+		title := strings.SplitN(filename, "-", 2)[1]
+
+		flags := html.CommonFlags | html.CompletePage | html.HrefTargetBlank
+		opts := html.RendererOptions{
+			Title: title,
+			Flags: flags,
+		}
+		renderer := html.NewRenderer(opts)
+		md := []byte(text)
+		text = string(markdown.ToHTML(md, nil, renderer))
+	}
 	w.Header().Set("Content-Type", "text/html")
 	// w.Header().Set("Cache-Control", "s-maxage=3600") // cache
 	fmt.Fprintf(w, text)
