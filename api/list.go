@@ -33,15 +33,16 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "s-maxage=3600") // cache
+
 	var path string
-	if LOCAL_DEBUG {
-		path = "C:\\Users\\Neko\\Documents\\GitHub\\simpublish\\api\\" + "_output"
-	} else {
-		path = "_output"
-	}
+	path = "_output"
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
-		log.Panic(err)
+		log.Println(err)
+		fmt.Fprint(w, "[]")
+		return
 	}
 	res := make([]ArticleInfo, len(files))
 	for i, file := range files {
@@ -65,7 +66,5 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 		res[i] = ArticleInfo{Id: id, Title: title, Type: filetype, Size: file.Size()}
 	}
 	// log.Printf("res: %v\n", res)
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Cache-Control", "s-maxage=3600") // cache
 	json.NewEncoder(w).Encode(res)
 }
