@@ -1,7 +1,7 @@
 package api
 
 import (
-	"encoding/base64"
+	//"encoding/base64"
 	"errors"
 	"fmt"
 	"github.com/gomarkdown/markdown"
@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 )
@@ -41,11 +42,12 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	if !Auth(passwordFromCookie) {
 		pageURL := r.URL.String()
-		b64 := base64.StdEncoding.EncodeToString([]byte(pageURL))
-		redirect_path := "/login-to-" + b64
+		// b64 := base64.StdEncoding.EncodeToString([]byte(pageURL))
+		encoded := url.QueryEscape(pageURL)
+		redirect_path := "/login-to-" + encoded
 		html := `<html>
 		<meta http-equiv="refresh" content="0; url=..` + redirect_path + `" />
-		</html>`
+		</html>` // https://stackoverflow.com/a/37755644
 		w.WriteHeader(http.StatusTemporaryRedirect)
 		fmt.Fprint(w, html)
 		// http.Redirect(w, r, redirect_path, http.StatusTemporaryRedirect)
@@ -100,5 +102,5 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "text/html")
 	// w.Header().Set("Cache-Control", "s-maxage=3600") // cache
-	fmt.Fprintf(w, text)
+	fmt.Fprint(w, text)
 }

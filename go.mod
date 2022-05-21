@@ -1,4 +1,4 @@
-module overflow.cat/simpublish
+module github.com/overflowcat/simpublish
 
 go 1.17
 
