@@ -71,7 +71,20 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 
 	filename, err := GetArticleById(id)
 	if err != nil {
-		log.Panic(err)
+		// 404
+		log.Println(err)
+		html := `<html>
+		<head>
+		<title>404</title>
+		</head>
+		<body>
+		<h1>未找到文章</h1>
+		<p>请检查文章编号是否正确</p>
+		</body>
+		</html>`
+		w.WriteHeader(http.StatusNotFound)
+		w.Header().Set("Cache-Control", "s-maxage=480")
+		fmt.Fprint(w, html)
 		return
 	}
 

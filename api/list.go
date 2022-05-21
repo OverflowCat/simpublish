@@ -65,6 +65,5 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		res[i] = ArticleInfo{Id: id, Title: title, Type: filetype, Size: file.Size()}
 	}
-	// log.Printf("res: %v\n", res)
 	json.NewEncoder(w).Encode(res)
 }

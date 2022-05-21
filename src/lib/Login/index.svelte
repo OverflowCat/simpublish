@@ -105,6 +105,13 @@
             caption={new Date().toLocaleString()}
         />
     {/if}
+    {#if redirectURL != ""}
+        <ToastNotification
+            title="需要登录"
+            kind="info"
+            subtitle="登录后将会自动跳转至您先前访问的页面"
+            caption={new Date().toLocaleString()} />  
+    {/if}
 </div>
 
 <style>
