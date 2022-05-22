@@ -36,6 +36,9 @@ func GetArticleById(id uint64) (string, error) {
 	}
 	for _, file := range files {
 		name := file.Name()
+		if strings.HasSuffix(name, "@annote.html") {
+			continue
+		} // NOTE: @annote cannot be referred by id; you must use the title instead
 		if strings.HasPrefix(name, fmt.Sprint(id)+"-") {
 			return name, nil
 		}

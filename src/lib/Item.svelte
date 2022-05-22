@@ -45,7 +45,8 @@
                 </div>
                 <span id="title" use:truncate>
                     <a
-                        href="/articles/{id === 0
+                        href="/articles/{id === 0 ||
+                        title.endsWith('@annote')
                             ? encodeURIComponent(title)
                             : id}/">{title}</a
                     >
