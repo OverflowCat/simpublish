@@ -45,7 +45,7 @@
 
 # 附录
 
-1. [静态建站方案](https://github.com/Kenshin/simpread/discussions/3823)
+1. [静态部署方案](https://github.com/Kenshin/simpread/discussions/3823)
 
 2. [官方资料库方案](https://kb.simpread.pro/#/page/建立资料库)
 
