@@ -51,19 +51,28 @@ func GetArticleByTitle(title string) (string, error) {
 	}
 	for _, file := range files {
 		name := file.Name()
-		// find file extension
+		if name == title {
+			return name, nil
+		}
+
 		ext := filepath.Ext(name)
 		if ext != "html" && ext != "md" {
 			continue
 		}
+		name_without_ext := strings.TrimSuffix(name, ext)
+		fmt.Println("name_without_ext:", name_without_ext)
+		if name_without_ext == title {
+			return name, nil
+		}
+
 		id_prefix := strings.SplitN(name, "-", 2)[0]
 		var name_without_id string = name
 		if isDigit(id_prefix) {
-			// This file has an ID prefix
 			name_without_id = name[len(id_prefix)+1:]
 		}
-		// delete extension
-		name_without_ext := name_without_id[:len(name_without_id)-len(ext)]
+		fmt.Println("name_without_id:", name_without_id)
+		name_without_ext = strings.TrimSuffix(name_without_id, ext)
+		fmt.Println("name_without_ext:", name_without_ext)
 		if name_without_ext == title {
 			return name, nil
 		}

@@ -36,8 +36,7 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Cache-Control", "s-maxage=3600") // cache
 
-	var path string
-	path = "_output"
+	var path string = "_output"
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		log.Println(err)
