@@ -48,21 +48,29 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println(i)
 		filename := file.Name()
 		log.Printf("filename: %s\n", filename)
+		var id uint64
+		var err error
+		title := filename
 		if !(strings.Contains(filename, "-")) {
-			continue
+			id = 0
+		} else {
+			id_str := strings.Split(filename, "-")[0]
+			id, err = strconv.ParseUint(id_str, 10, 64)
+			if err != nil {
+				id = 0
+			} else {
+				title = strings.Join(strings.Split(filename, "-")[1:], "-")
+			}
 		}
-		id_str := strings.Split(filename, "-")[0]
-		id, err := strconv.ParseUint(id_str, 10, 64)
-		if err != nil {
-			continue
-		}
-		title := strings.Join(strings.Split(filename, "-")[1:], "-")
-		var filetype = "html"
+		var filetype string
 		if strings.HasSuffix(title, ".html") {
+			filetype = "html"
 			title = title[:len(title)-5]
 		} else if strings.HasSuffix(title, ".md") {
 			filetype = "md"
 			title = title[:len(title)-3]
+		} else {
+			continue
 		}
 		res = append(res, ArticleInfo{Id: id, Title: title, Type: filetype, Size: file.Size()})
 	}

@@ -37,7 +37,11 @@
                 </span>
             {:else}
                 <div id="id">
-                    {id}
+                    {#if id === 0}
+                        -
+                    {:else}
+                        {id}
+                    {/if}
                 </div>
                 <span id="title" use:truncate>
                     <a href="/articles/{id}/">{title}</a>
