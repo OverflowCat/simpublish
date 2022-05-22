@@ -56,11 +56,10 @@ func GetArticleByTitle(title string) (string, error) {
 		}
 
 		ext := filepath.Ext(name)
-		if ext != "html" && ext != "md" {
+		if ext != ".html" && ext != ".md" {
 			continue
 		}
 		name_without_ext := strings.TrimSuffix(name, ext)
-		fmt.Println("name_without_ext:", name_without_ext)
 		if name_without_ext == title {
 			return name, nil
 		}
@@ -70,9 +69,7 @@ func GetArticleByTitle(title string) (string, error) {
 		if isDigit(id_prefix) {
 			name_without_id = name[len(id_prefix)+1:]
 		}
-		fmt.Println("name_without_id:", name_without_id)
 		name_without_ext = strings.TrimSuffix(name_without_id, ext)
-		fmt.Println("name_without_ext:", name_without_ext)
 		if name_without_ext == title {
 			return name, nil
 		}
