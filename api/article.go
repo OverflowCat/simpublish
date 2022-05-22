@@ -10,17 +10,27 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
 
 /* const LOCAL_DEBUG = false */
 
+const OUTPUT_PATH = "_output"
+
+func isDigit(s string) bool {
+	for _, c := range s {
+		if c < '0' || c > '9' {
+			return false
+		}
+	}
+	return true
+}
+
 func GetArticleById(id uint64) (string, error) {
-	// Read all files in the directory and find the file starting with the given ID
-	var path string
-	path = "_output"
-	files, err := ioutil.ReadDir(path)
+	// read all files in the directory and find the file starting with the given ID
+	files, err := ioutil.ReadDir(OUTPUT_PATH)
 	if err != nil {
 		return "", err
 	}
@@ -30,7 +40,35 @@ func GetArticleById(id uint64) (string, error) {
 			return name, nil
 		}
 	}
-	return "", errors.New("Not found")
+	return "", errors.New("not found")
+}
+
+func GetArticleByTitle(title string) (string, error) {
+	// read all files in the directory and find the file starting with the given ID
+	files, err := ioutil.ReadDir(OUTPUT_PATH)
+	if err != nil {
+		return "", err
+	}
+	for _, file := range files {
+		name := file.Name()
+		// find file extension
+		ext := filepath.Ext(name)
+		if ext != "html" && ext != "md" {
+			continue
+		}
+		id_prefix := strings.SplitN(name, "-", 2)[0]
+		var name_without_id string = name
+		if isDigit(id_prefix) {
+			// This file has an ID prefix
+			name_without_id = name[len(id_prefix)+1:]
+		}
+		// delete extension
+		name_without_ext := name_without_id[:len(name_without_id)-len(ext)]
+		if name_without_ext == title {
+			return name, nil
+		}
+	}
+	return "", errors.New("not found")
 }
 
 func ArticleHandler(w http.ResponseWriter, r *http.Request) {
@@ -54,32 +92,38 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ids, ok := r.URL.Query()["id"]
-	if !ok || len(ids[0]) < 1 {
+	id_or_titles, ok := r.URL.Query()["id"]
+	if !ok || len(id_or_titles[0]) < 1 {
 		log.Println("Url Param 'id' is missing")
 		return
 	}
 	// Query()["id"] will return an array of items,
 	// we only want the single item.
-	id_str := ids[0]
-	log.Println("Url Param 'id' is: " + string(id_str))
-	id, err := strconv.ParseUint(id_str, 10, 64)
-	if err != nil {
-		log.Panicln("Incorrect article ID")
-		return
+	id_or_title_str := id_or_titles[0]
+	log.Println("Url Param 'id' is: " + string(id_or_title_str))
+	var filename string
+	var getarticleerr error
+	if isDigit(id_or_title_str) {
+		// this is a title
+		filename, getarticleerr = GetArticleByTitle(id_or_title_str)
+	} else {
+		id, err := strconv.ParseUint(id_or_title_str, 10, 64)
+		if err != nil {
+			log.Println("Url Param 'id' is not a valid uint64")
+			return
+		}
+		filename, getarticleerr = GetArticleById(id)
 	}
-
-	filename, err := GetArticleById(id)
-	if err != nil {
+	if getarticleerr != nil {
 		// 404
-		log.Println(err)
 		html := `<html>
 		<head>
+		<meta charset="utf-8">
 		<title>404</title>
 		</head>
 		<body>
 		<h1>未找到文章</h1>
-		<p>请检查文章编号是否正确</p>
+		<p>请检查文章编号或标题是否正确</p>
 		</body>
 		</html>`
 		w.WriteHeader(http.StatusNotFound)

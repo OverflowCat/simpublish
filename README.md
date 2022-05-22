@@ -6,11 +6,17 @@
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FOverflowCat%2Fsimpublish&env=SIMPUBLISH_PASSWD&envDescription=%E8%AE%BF%E9%97%AE%E5%AF%86%E7%A0%81&project-name=my-simpublish-site&repository-name=my-simpublish-site&demo-title=Simpublish%20Demo&demo-url=https%3A%2F%2Fsimpublish.vercel.app%2F)
 
-_Demo: https://simpublish.vercel.app_
+_Demo: https://simpublish.vercel.app_ 密码：`jianyue`
 
 ## 使用说明
 
 首先需要清空项目中的 `api/_output` 中的示例文件，然后将简悦自动化的 `output` 文件夹中的 HTML 或 Markdown 文件放入 `api/_output` 即可。该操作可以通过各类自动化软件完成，如 Windows 的 [DropIt](http://www.dropitproject.com/) 和 macOS 的 [Hazel](https://www.noodlesoft.com/)。
+
+### 密码
+
+API 将读取环境变量 `SIMPUBLISH_PASSWD` 的值作为登录密码，可以在 Vercel 中 Project Settings 里的 Environment Variables 中设置。通过上方按钮部署时，也会提示设置这一环境变量。
+
+如果留空则没有密码，在登录界面直接点击「验证密码」即可。
 
 ### 自定义
 
