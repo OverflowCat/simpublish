@@ -11,7 +11,7 @@
     const DEFAULT_ITEMS = [
         {
             title: "Example 1",
-            id: 104,
+            id: 0,
             size: 2500,
         },
         {
