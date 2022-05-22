@@ -49,10 +49,12 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println(i)
 		filename := file.Name()
 		log.Printf("filename: %s\n", filename)
+		if !(strings.Contains(filename, "-")) {
+			continue
+		}
 		id_str := strings.Split(filename, "-")[0]
 		id, err := strconv.ParseUint(id_str, 10, 64)
 		if err != nil {
-			log.Panic(err)
 			continue
 		}
 		title := strings.Join(strings.Split(filename, "-")[1:], "-")
