@@ -44,7 +44,11 @@
                     {/if}
                 </div>
                 <span id="title" use:truncate>
-                    <a href="/articles/{id}/">{title}</a>
+                    <a
+                        href="/articles/{id === 0
+                            ? encodeURIComponent(title)
+                            : id}/">{title}</a
+                    >
                 </span>
                 <span id="size" class="hidden-mobile">
                     {@html formatSizeUnits(size)}
