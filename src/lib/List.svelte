@@ -5,6 +5,7 @@
     import Item from "./Item.svelte";
     import Login from "./Login/index.svelte";
     import Cookies from "js-cookie";
+    import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
     let isDebug = false;
 
     const DEFAULT_ITEMS = [
@@ -55,7 +56,7 @@
         },
     ];
     let items = DEFAULT_ITEMS;
-    let isAuthenticated = isDebug || (Cookies.get("password") !== undefined);
+    let isAuthenticated = isDebug || Cookies.get("password") !== undefined;
     function refreshItems() {
         if (isAuthenticated && !isDebug) {
             fetch("/api/list")
@@ -77,9 +78,32 @@
 
 <div class="container scrollview">
     {#if isAuthenticated}
-        <VirtualList {items} let:item>
-            <Item id={item.id} title={item.title} size={item.size} {skeleton} />
-        </VirtualList>
+        {#if items.length > 0}
+            <VirtualList {items} let:item>
+                <Item
+                    id={item.id}
+                    title={item.title}
+                    size={item.size}
+                    {skeleton}
+                />
+            </VirtualList>
+        {:else}
+            <h3>_output 文件夹中没有文章</h3>
+            <div class="lottiecontainer">
+                <LottiePlayer
+                    src="https://assets10.lottiefiles.com/packages/lf20_eschh8lz.json"
+                    autoplay={true}
+                    loop={true}
+                    controls="false"
+                    renderer="svg"
+                    background="transparent"
+                    height="128"
+                    width="128"
+                    controlsLayout={[]}
+                />
+            </div>
+            <div />
+        {/if}
     {:else}
         <Login bind:isAuthenticated />
     {/if}
@@ -92,5 +116,14 @@
         margin-left: 4px;
         margin-right: 4px;
         height: calc(100vh - 10rem);
+    }
+    .lottiecontainer {
+        margin: 6px;
+        margin-left: 6px;
+        display: flex;
+        justify-content: center;
+    }
+    h3 {
+        text-align: center;
     }
 </style>

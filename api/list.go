@@ -44,7 +44,7 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "[]")
 		return
 	}
-	res := make([]ArticleInfo, len(files))
+	res := make([]ArticleInfo, 0, len(files))
 	for i, file := range files {
 		log.Println(i)
 		filename := file.Name()
@@ -65,7 +65,7 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 			filetype = "md"
 			title = title[:len(title)-3]
 		}
-		res[i] = ArticleInfo{Id: id, Title: title, Type: filetype, Size: file.Size()}
+		res = append(res, ArticleInfo{Id: id, Title: title, Type: filetype, Size: file.Size()})
 	}
 	json.NewEncoder(w).Encode(res)
 }
